@@ -1,0 +1,50 @@
+{
+    "name": "xaddax/webonyx-middleware-component",
+    "type": "library",
+    "description": "Laminas framework integration for webonyx-psr15-middleware",
+    "version": "0.1.0",
+    "keywords": [
+        "graphql",
+        "laminas",
+        "middleware",
+        "webonyx"
+    ],
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^8.3",
+        "xaddax/webonyx-psr15-middleware": "^15.0",
+        "laminas/laminas-servicemanager": "^4.0",
+        "psr/container": "^2.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^11.0",
+        "squizlabs/php_codesniffer": "^3.9"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Xaddax\\WebonyxMiddlewareComponent\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Xaddax\\WebonyxMiddlewareComponent\\Test\\": "tests/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@stan",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "stan": "phpstan analyse",
+        "test": "phpunit --colors=always",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-text --colors=never"
+    }
+} 

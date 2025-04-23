@@ -1,0 +1,9 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - tests/*/data/*
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false 
