@@ -20,7 +20,7 @@ composer require xaddax/webonyx-middleware-component
 ```php
 // config/modules.config.php
 return [
-    'Xaddax\\WebonyxMiddlewareComponent',
+    'Xaddax\\WebonyxMiddleware',
     // ... other modules
 ];
 ```

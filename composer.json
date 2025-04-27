@@ -27,12 +27,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Xaddax\\WebonyxMiddlewareComponent\\": "src/"
+            "Xaddax\\WebonyxMiddleware\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Xaddax\\WebonyxMiddlewareComponent\\Test\\": "tests/"
+            "Xaddax\\WebonyxMiddleware\\Test\\": "tests/"
         }
     },
     "scripts": {
