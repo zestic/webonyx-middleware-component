@@ -10,16 +10,12 @@ use GraphQL\Middleware\Contract\ResponseFactoryInterface;
 use GraphQL\Middleware\Contract\SchemaConfigurationInterface;
 use GraphQL\Middleware\Contract\TemplateEngineInterface;
 use GraphQL\Middleware\Error\DefaultErrorHandler;
-use GraphQL\Middleware\Factory\ResolverFactory;
-use GraphQL\Middleware\Generator\ResolverGenerator;
 use GraphQL\Middleware\Generator\SimpleTemplateEngine;
 use GraphQL\Server\ServerConfig;
 use GraphQL\Type\Schema;
 use Xaddax\WebonyxMiddleware\Factory\DefaultResponseFactoryFactory;
 use Xaddax\WebonyxMiddleware\Factory\GeneratedSchemaFactoryFactory as GeneratedSchemaFactory;
 use Xaddax\WebonyxMiddleware\Factory\GraphQLMiddlewareFactory;
-use Xaddax\WebonyxMiddleware\Factory\ResolverFactoryFactory;
-use Xaddax\WebonyxMiddleware\Factory\ResolverGeneratorFactory;
 use Xaddax\WebonyxMiddleware\Factory\ServerConfigFactory;
 use Xaddax\WebonyxMiddleware\Factory\SchemaConfigurationFactory;
 
@@ -42,9 +38,8 @@ class ConfigProvider
             ],
             'factories' => [
                 GraphQLMiddleware::class => GraphQLMiddlewareFactory::class,
-                ResolverFactory::class => ResolverFactoryFactory::class,
+                GeneratorConfig::class => GeneratorConfigFactory::class,
                 ResponseFactoryInterface::class => DefaultResponseFactoryFactory::class,
-                ResolverGenerator::class => ResolverGeneratorFactory::class,
                 Schema::class => GeneratedSchemaFactory::class,
                 ServerConfig::class => ServerConfigFactory::class,
                 SchemaConfiguration::class => SchemaConfigurationFactory::class,
@@ -55,7 +50,35 @@ class ConfigProvider
 
     public function getGraphQLConfig(): array
     {
+        $srcDir = getcwd() . '/src';
+        $templatesDir = __DIR__ . '/../../../webonyx-middleware-component/templates';
+        $templatesDir = realpath($templatesDir);
+
         return [
+            'generator' => [
+                'entityConfig' => [
+                    'namespace' => 'Domain\\Entity',
+                    'fileLocation' => $srcDir . '/Domain/Entity',
+                    'templatePath' => $templatesDir . '/entity.php.template',
+                ],
+                'requestConfig' => [
+                    'namespace' => 'Application\\GraphQL\\Request',
+                    'fileLocation' => $srcDir . '/Application/GraphQL/Request',
+                    'templatePath' => $templatesDir . '/request.php.template',
+                ],
+                'resolverConfig' => [
+                    'namespace' => 'Application\\GraphQL\\Resolver',
+                    'fileLocation' => $srcDir . '/Application/GraphQL/Resolver',
+                    'templatePath' => $templatesDir . '/resolver.php.template',
+                ],
+                'typeMappings' => [],
+                'customTypes' => [],
+                'isImmutable' => false,
+                'hasStrictTypes' => false,
+            ],
+            'middleware' => [
+                'fallbackResolver' => null,
+            ],
             'schema' => [
                 'isCacheEnabled' => true,
                 'cacheDirectory' => [],
