@@ -11,11 +11,13 @@ use GraphQL\Middleware\Contract\SchemaConfigurationInterface;
 use GraphQL\Middleware\Contract\TemplateEngineInterface;
 use GraphQL\Middleware\Error\DefaultErrorHandler;
 use GraphQL\Middleware\Generator\SimpleTemplateEngine;
+use GraphQL\Middleware\Resolver\ResolverManager;
 use GraphQL\Server\ServerConfig;
 use GraphQL\Type\Schema;
 use Xaddax\WebonyxMiddleware\Factory\DefaultResponseFactoryFactory;
 use Xaddax\WebonyxMiddleware\Factory\GeneratedSchemaFactoryFactory as GeneratedSchemaFactory;
 use Xaddax\WebonyxMiddleware\Factory\GraphQLMiddlewareFactory;
+use Xaddax\WebonyxMiddleware\Factory\ResolverManagerFactory;
 use Xaddax\WebonyxMiddleware\Factory\ServerConfigFactory;
 use Xaddax\WebonyxMiddleware\Factory\SchemaConfigurationFactory;
 
@@ -39,6 +41,7 @@ class ConfigProvider
             'factories' => [
                 GraphQLMiddleware::class => GraphQLMiddlewareFactory::class,
                 GeneratorConfig::class => GeneratorConfigFactory::class,
+                ResolverManager::class => ResolverManagerFactory::class,
                 ResponseFactoryInterface::class => DefaultResponseFactoryFactory::class,
                 Schema::class => GeneratedSchemaFactory::class,
                 ServerConfig::class => ServerConfigFactory::class,
@@ -53,6 +56,7 @@ class ConfigProvider
         $srcDir = getcwd() . '/src';
         $templatesDir = __DIR__ . '/../../../webonyx-middleware-component/templates';
         $templatesDir = realpath($templatesDir);
+        $typeConfigDecorator = $resolverManager->createTypeConfigDecorator();
 
         return [
             'generator' => [
@@ -77,13 +81,21 @@ class ConfigProvider
                 'hasStrictTypes' => false,
             ],
             'middleware' => [
-                'fallbackResolver' => null,
+                'fallbackResolver' => function ($source, $args, $context, $info) {
+                    return $source[$info->fieldName] ?? null;
+                },
             ],
             'schema' => [
-                'isCacheEnabled' => true,
-                'cacheDirectory' => [],
                 'schemaDirectories' => [],
+                'isCacheEnabled' => false,
+                'cacheDirectory' => sys_get_temp_dir(),
+                'directoryChangeFilename' => 'graphql-directory-changes.php',
+                'schemaFilename' => 'graphql-schema.php',
                 'parserOptions' => [],
+                'resolverConfig' => [],
+                'typeConfigDecorator' => $typeConfigDecorator,
+                'schemaOptions' => [],
+                'fieldConfigDecorator' => null,
             ],
             'context' => [],
             'root_value' => null,
