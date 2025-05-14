@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Xaddax\WebonyxMiddleware\Factory;
 
+use GraphQL\Middleware\Factory\ResolverFactory;
 use GraphQL\Middleware\Resolver\ResolverManager;
+use Psr\Container\ContainerInterface;
 
 final class ResolverManagerFactory
 {

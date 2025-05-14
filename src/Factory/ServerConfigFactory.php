@@ -14,6 +14,8 @@ final class ServerConfigFactory
     {
         $containerConfig = $container->get('config');
 
+        // the schema is wrong here. it should be a SchemaConfig instance,
+        // right now its GeneratedSchemaFactory
         $config = $containerConfig['graphql']['server'] ?? [];
 
         $schema = $config['schema'] ?? Schema::class;

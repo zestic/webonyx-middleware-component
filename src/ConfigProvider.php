@@ -5,21 +5,25 @@ declare(strict_types=1);
 namespace Xaddax\WebonyxMiddleware;
 
 use GraphQL\Middleware\GraphQLMiddleware;
+use GraphQL\Middleware\Config\GeneratorConfig;
+use GraphQL\Middleware\Config\SchemaConfig;
 use GraphQL\Middleware\Contract\ErrorHandlerInterface;
 use GraphQL\Middleware\Contract\ResponseFactoryInterface;
-use GraphQL\Middleware\Contract\SchemaConfigurationInterface;
 use GraphQL\Middleware\Contract\TemplateEngineInterface;
+use GraphQL\Middleware\Contract\TypeMapperInterface;
 use GraphQL\Middleware\Error\DefaultErrorHandler;
+use GraphQL\Middleware\Factory\GeneratedSchemaFactory;
+use GraphQL\Middleware\Generator\DefaultTypeMapper;
 use GraphQL\Middleware\Generator\SimpleTemplateEngine;
 use GraphQL\Middleware\Resolver\ResolverManager;
 use GraphQL\Server\ServerConfig;
 use GraphQL\Type\Schema;
 use Xaddax\WebonyxMiddleware\Factory\DefaultResponseFactoryFactory;
-use Xaddax\WebonyxMiddleware\Factory\GeneratedSchemaFactoryFactory as GeneratedSchemaFactory;
+use Xaddax\WebonyxMiddleware\Factory\GeneratorConfigFactory;
 use Xaddax\WebonyxMiddleware\Factory\GraphQLMiddlewareFactory;
 use Xaddax\WebonyxMiddleware\Factory\ResolverManagerFactory;
+use Xaddax\WebonyxMiddleware\Factory\SchemaConfigFactory;
 use Xaddax\WebonyxMiddleware\Factory\ServerConfigFactory;
-use Xaddax\WebonyxMiddleware\Factory\SchemaConfigurationFactory;
 
 class ConfigProvider
 {
@@ -37,16 +41,16 @@ class ConfigProvider
             'aliases' => [
                 ErrorHandlerInterface::class => DefaultErrorHandler::class,
                 TemplateEngineInterface::class => SimpleTemplateEngine::class,
+                TypeMapperInterface::class => DefaultTypeMapper::class,
             ],
             'factories' => [
                 GraphQLMiddleware::class => GraphQLMiddlewareFactory::class,
                 GeneratorConfig::class => GeneratorConfigFactory::class,
                 ResolverManager::class => ResolverManagerFactory::class,
                 ResponseFactoryInterface::class => DefaultResponseFactoryFactory::class,
-                Schema::class => GeneratedSchemaFactory::class,
+                SchemaConfig::class => SchemaConfigFactory::class,
                 ServerConfig::class => ServerConfigFactory::class,
-                SchemaConfiguration::class => SchemaConfigurationFactory::class,
-                SchemaConfigurationInterface::class => SchemaConfigurationFactory::class,
+                Schema::class => GeneratedSchemaFactory::class,
             ],
         ];
     }
@@ -54,9 +58,8 @@ class ConfigProvider
     public function getGraphQLConfig(): array
     {
         $srcDir = getcwd() . '/src';
-        $templatesDir = __DIR__ . '/../../../webonyx-middleware-component/templates';
+        $templatesDir = __DIR__ . '/../../webonyx-psr15-middleware/templates';
         $templatesDir = realpath($templatesDir);
-        $typeConfigDecorator = $resolverManager->createTypeConfigDecorator();
 
         return [
             'generator' => [
@@ -93,9 +96,9 @@ class ConfigProvider
                 'schemaFilename' => 'graphql-schema.php',
                 'parserOptions' => [],
                 'resolverConfig' => [],
-                'typeConfigDecorator' => $typeConfigDecorator,
+                'typeConfigDecorator' => ResolverManager::class,
                 'schemaOptions' => [],
-                'fieldConfigDecorator' => null,
+                'fieldConfigDecorator' => ResolverManager::class,
             ],
             'context' => [],
             'root_value' => null,
