@@ -13,6 +13,7 @@ use GraphQL\Middleware\Contract\TemplateEngineInterface;
 use GraphQL\Middleware\Contract\TypeMapperInterface;
 use GraphQL\Middleware\Error\DefaultErrorHandler;
 use GraphQL\Middleware\Factory\GeneratedSchemaFactory;
+use GraphQL\Middleware\Factory\ResolverFactory;
 use GraphQL\Middleware\Generator\DefaultTypeMapper;
 use GraphQL\Middleware\Generator\SimpleTemplateEngine;
 use GraphQL\Middleware\Resolver\ResolverManager;
@@ -21,6 +22,7 @@ use GraphQL\Type\Schema;
 use Xaddax\WebonyxMiddleware\Factory\DefaultResponseFactoryFactory;
 use Xaddax\WebonyxMiddleware\Factory\GeneratorConfigFactory;
 use Xaddax\WebonyxMiddleware\Factory\GraphQLMiddlewareFactory;
+use Xaddax\WebonyxMiddleware\Factory\ResolverFactoryFactory;
 use Xaddax\WebonyxMiddleware\Factory\ResolverManagerFactory;
 use Xaddax\WebonyxMiddleware\Factory\SchemaConfigFactory;
 use Xaddax\WebonyxMiddleware\Factory\ServerConfigFactory;
@@ -46,6 +48,7 @@ class ConfigProvider
             'factories' => [
                 GraphQLMiddleware::class => GraphQLMiddlewareFactory::class,
                 GeneratorConfig::class => GeneratorConfigFactory::class,
+                ResolverFactory::class => ResolverFactoryFactory::class,
                 ResolverManager::class => ResolverManagerFactory::class,
                 ResponseFactoryInterface::class => DefaultResponseFactoryFactory::class,
                 SchemaConfig::class => SchemaConfigFactory::class,

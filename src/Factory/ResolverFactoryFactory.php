@@ -12,7 +12,7 @@ class ResolverFactoryFactory
     public function __invoke(ContainerInterface $container): ResolverFactory
     {
         $containerConfig = $container->get('config');
-        $config = $containerConfig['graphql']['resolver'];
+        $config = $containerConfig['graphql']['generator']['resolverConfig'];
 
         return new ResolverFactory($container, $config['namespace']);
     }
