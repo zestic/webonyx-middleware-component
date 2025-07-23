@@ -12,6 +12,6 @@ class GeneratedSchemaFactoryFactory
 {
     public function __invoke(ContainerInterface $container): GeneratedSchemaFactory
     {
-        return new GeneratedSchemaFactory($container->get(SchemaConfig::class));
+        return new GeneratedSchemaFactory();
     }
 }

@@ -5,5 +5,9 @@ parameters:
         - tests
     excludePaths:
         - tests/*/data/*
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false 
+    ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+        -
+            message: '#Call to an undefined method Psr\\Container\\ContainerInterface::expects\(\)#'
+            path: tests/*

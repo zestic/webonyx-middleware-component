@@ -48,6 +48,8 @@
         "cs-fix": "phpcbf",
         "stan": "phpstan analyse",
         "test": "phpunit --colors=always",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-text --colors=never"
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-text --colors=never",
+        "generate-resolvers": "vendor/bin/generate-resolvers",
+        "generate-requests": "vendor/bin/generate-requests"
     }
-} 
+}
