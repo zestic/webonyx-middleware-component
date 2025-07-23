@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": "^8.3",
+        "php": "^8.3 | ^8.4",
         "xaddax/webonyx-psr15-middleware": "^15.0",
         "laminas/laminas-servicemanager": "^4.0",
         "psr/container": "^2.0"
