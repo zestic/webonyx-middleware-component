@@ -8,6 +8,7 @@ composer.lock
 Thumbs.db
 .idea/
 .vscode/
+.lh/
 *.swp
 *.swo
 *.swn
