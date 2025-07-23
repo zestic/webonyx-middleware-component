@@ -37,6 +37,8 @@ class ConfigProviderTest extends TestCase
     {
         $graphqlConfig = $this->configProvider->getGraphQLConfig();
 
+        $this->assertArrayHasKey('generator', $graphqlConfig);
+        $this->assertArrayHasKey('middleware', $graphqlConfig);
         $this->assertArrayHasKey('schema', $graphqlConfig);
         $this->assertArrayHasKey('context', $graphqlConfig);
         $this->assertArrayHasKey('root_value', $graphqlConfig);
@@ -44,5 +46,46 @@ class ConfigProviderTest extends TestCase
         $this->assertArrayHasKey('validation_rules', $graphqlConfig);
         $this->assertArrayHasKey('error_formatter', $graphqlConfig);
         $this->assertArrayHasKey('debug', $graphqlConfig);
+        $this->assertArrayHasKey('server', $graphqlConfig);
+
+        // Test generator config structure
+        $this->assertArrayHasKey('entityConfig', $graphqlConfig['generator']);
+        $this->assertArrayHasKey('requestConfig', $graphqlConfig['generator']);
+        $this->assertArrayHasKey('resolverConfig', $graphqlConfig['generator']);
+        $this->assertArrayHasKey('typeMappings', $graphqlConfig['generator']);
+        $this->assertArrayHasKey('customTypes', $graphqlConfig['generator']);
+        $this->assertArrayHasKey('isImmutable', $graphqlConfig['generator']);
+        $this->assertArrayHasKey('hasStrictTypes', $graphqlConfig['generator']);
+
+        // Test middleware config structure
+        $this->assertArrayHasKey('fallbackResolver', $graphqlConfig['middleware']);
+        $this->assertIsCallable($graphqlConfig['middleware']['fallbackResolver']);
+
+        // Test schema config structure
+        $this->assertArrayHasKey('schemaDirectories', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('isCacheEnabled', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('cacheDirectory', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('directoryChangeFilename', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('schemaFilename', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('parserOptions', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('resolverConfig', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('typeConfigDecorator', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('schemaOptions', $graphqlConfig['schema']);
+        $this->assertArrayHasKey('fieldConfigDecorator', $graphqlConfig['schema']);
+    }
+
+    public function testGetGraphQLConfigReturnsValidPaths(): void
+    {
+        $graphqlConfig = $this->configProvider->getGraphQLConfig();
+
+        // Test that the paths are properly constructed
+        $this->assertIsString($graphqlConfig['generator']['entityConfig']['fileLocation']);
+        $this->assertIsString($graphqlConfig['generator']['requestConfig']['fileLocation']);
+        $this->assertIsString($graphqlConfig['generator']['resolverConfig']['fileLocation']);
+
+        // Test that template paths are constructed (even if they don't exist)
+        $this->assertIsString($graphqlConfig['generator']['entityConfig']['templatePath']);
+        $this->assertIsString($graphqlConfig['generator']['requestConfig']['templatePath']);
+        $this->assertIsString($graphqlConfig['generator']['resolverConfig']['templatePath']);
     }
 }

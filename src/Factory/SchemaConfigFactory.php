@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Xaddax\WebonyxMiddleware\Factory;
 
 use GraphQL\Middleware\Config\SchemaConfig;
-use GraphQL\Middleware\Contract\FieldConfigDecoratorInterface;
-use GraphQL\Middleware\Contract\TypeConfigDecoratorInterface;
 use Psr\Container\ContainerInterface;
 
 class SchemaConfigFactory
@@ -34,17 +32,18 @@ class SchemaConfigFactory
         );
     }
 
-    private function resolveTypeConfigDecorator($typeConfigDecorator = null): ?callable
+    private function resolveTypeConfigDecorator(mixed $typeConfigDecorator = null): ?callable
     {
         if ($typeConfigDecorator === null) {
             return null;
         }
 
         if ($this->container->has($typeConfigDecorator)) {
-            /** @var TypeConfigDecoratorInterface $manager */
             $manager = $this->container->get($typeConfigDecorator);
 
-            return $manager->createTypeConfigDecorator();
+            if (is_object($manager) && method_exists($manager, 'createTypeConfigDecorator')) {
+                return $manager->createTypeConfigDecorator();
+            }
         }
 
         if (is_callable($typeConfigDecorator)) {
@@ -54,17 +53,18 @@ class SchemaConfigFactory
         return null;
     }
 
-    private function resolveFieldConfigDecorator($fieldConfigDecorator = null): ?callable
+    private function resolveFieldConfigDecorator(mixed $fieldConfigDecorator = null): ?callable
     {
         if (!$fieldConfigDecorator) {
             return null;
         }
 
         if ($this->container->has($fieldConfigDecorator)) {
-            /** @var FieldConfigDecoratorInterface $manager */
             $manager = $this->container->get($fieldConfigDecorator);
 
-            return $manager->createFieldConfigDecorator();
+            if (is_object($manager) && method_exists($manager, 'createFieldConfigDecorator')) {
+                return $manager->createFieldConfigDecorator();
+            }
         }
 
         if (is_callable($fieldConfigDecorator)) {
