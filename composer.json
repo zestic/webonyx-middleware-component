@@ -11,7 +11,10 @@
     ],
     "license": "MIT",
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "xaddax/webonyx-psr15-middleware": true
+        }
     },
     "require": {
         "php": "^8.3",
