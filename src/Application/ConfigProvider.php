@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xaddax\WebonyxMiddleware;
+namespace Xaddax\WebonyxMiddleware\Application;
 
 use GraphQL\Middleware\GraphQLMiddleware;
 use GraphQL\Middleware\Config\GeneratorConfig;
@@ -11,6 +11,7 @@ use GraphQL\Middleware\Contract\ErrorHandlerInterface;
 use GraphQL\Middleware\Contract\ResponseFactoryInterface;
 use GraphQL\Middleware\Contract\TemplateEngineInterface;
 use GraphQL\Middleware\Contract\TypeMapperInterface;
+use GraphQL\Middleware\Context\RequestContext;
 use GraphQL\Middleware\Error\DefaultErrorHandler;
 use GraphQL\Middleware\Factory\GeneratedSchemaFactory;
 use GraphQL\Middleware\Factory\ResolverFactory;
@@ -109,6 +110,10 @@ class ConfigProvider
             'validation_rules' => [],
             'error_formatter' => null,
             'debug' => false,
+            'server' => [
+                'context' => RequestContext::class,
+            ],
+
         ];
     }
 }
