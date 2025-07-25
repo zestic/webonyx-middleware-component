@@ -1,5 +1,9 @@
 # Webonyx Middleware Component
 
+[![Test](https://github.com/zestic/webonyx-middleware-component/workflows/Test/badge.svg)](https://github.com/zestic/webonyx-middleware-component/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/zestic/webonyx-middleware-component/branch/main/graph/badge.svg)](https://codecov.io/gh/zestic/webonyx-middleware-component)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 This library provides Laminas framework integration for the [webonyx-psr15-middleware](https://github.com/xaddax/webonyx-psr15-middleware) package.
 
 ## Requirements
