@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xaddax\WebonyxMiddleware\Application;
+namespace Xaddax\WebonyxMiddleware;
 
 use GraphQL\Middleware\GraphQLMiddleware;
 use GraphQL\Middleware\Config\GeneratorConfig;

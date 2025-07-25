@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Xaddax\WebonyxMiddleware\Test\Application;
+namespace Xaddax\WebonyxMiddleware\Test;
 
 use PHPUnit\Framework\TestCase;
-use Xaddax\WebonyxMiddleware\Application\ConfigProvider;
+use Xaddax\WebonyxMiddleware\ConfigProvider;
 
 class ConfigProviderTest extends TestCase
 {
