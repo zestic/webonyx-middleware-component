@@ -104,16 +104,9 @@ class ConfigProvider
                 'schemaOptions' => [],
                 'fieldConfigDecorator' => ResolverManager::class,
             ],
-            'context' => [],
-            'root_value' => null,
-            'field_resolver' => null,
-            'validation_rules' => [],
-            'error_formatter' => null,
-            'debug' => false,
             'server' => [
                 'context' => RequestContext::class,
             ],
-
         ];
     }
 }
