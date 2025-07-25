@@ -9,7 +9,7 @@
         "middleware",
         "webonyx"
     ],
-    "license": "MIT",
+    "license": "Apache-2.0",
     "config": {
         "sort-packages": true,
         "allow-plugins": {
@@ -30,7 +30,9 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Xaddax\\WebonyxMiddleware\\": "src/"
+            "Xaddax\\WebonyxMiddleware\\": "src/",
+            "GraphQL\\Middleware\\Config\\": "src/Config/",
+            "GraphQL\\Middleware\\Context\\": "src/Context/"
         }
     },
     "autoload-dev": {

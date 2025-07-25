@@ -1,4 +1,4 @@
-# Xaddax Webonyx Middleware Component
+# Webonyx Middleware Component
 
 This library provides Laminas framework integration for the [webonyx-psr15-middleware](https://github.com/xaddax/webonyx-psr15-middleware) package.
 
@@ -70,4 +70,4 @@ composer cs-fix
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the Apache 2.0 License - see the LICENSE file for details. 

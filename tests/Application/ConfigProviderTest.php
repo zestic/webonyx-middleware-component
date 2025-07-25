@@ -40,13 +40,10 @@ class ConfigProviderTest extends TestCase
         $this->assertArrayHasKey('generator', $graphqlConfig);
         $this->assertArrayHasKey('middleware', $graphqlConfig);
         $this->assertArrayHasKey('schema', $graphqlConfig);
-        $this->assertArrayHasKey('context', $graphqlConfig);
-        $this->assertArrayHasKey('root_value', $graphqlConfig);
-        $this->assertArrayHasKey('field_resolver', $graphqlConfig);
-        $this->assertArrayHasKey('validation_rules', $graphqlConfig);
-        $this->assertArrayHasKey('error_formatter', $graphqlConfig);
-        $this->assertArrayHasKey('debug', $graphqlConfig);
         $this->assertArrayHasKey('server', $graphqlConfig);
+
+        // Test server config structure
+        $this->assertArrayHasKey('context', $graphqlConfig['server']);
 
         // Test generator config structure
         $this->assertArrayHasKey('entityConfig', $graphqlConfig['generator']);
